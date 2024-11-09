@@ -24,7 +24,6 @@ public class GameTest : TestClass
     [CleanupAll]
     public void Cleanup() => _fixture.Cleanup();
 
-    /*
     [Test]
     public void TestButtonUpdatesCounter()
     {
@@ -32,5 +31,4 @@ public class GameTest : TestClass
         buttonDriver.ClickCenter();
         _game.ButtonPresses.ShouldBe(1);
     }
-    */
 }
