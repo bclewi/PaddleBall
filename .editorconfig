@@ -110,6 +110,7 @@ dotnet_analyzer_diagnostic.severity = warning
 
 # .NET Style Rules
 [*.{cs,csx,cake,vb,vbx}]
+indent_size = 4
 
 # "this." and "Me." qualifiers
 dotnet_style_qualification_for_field = false
@@ -262,7 +263,7 @@ dotnet_diagnostic.IDE0130.severity = none
 [*.{cs,csx,cake}]
 
 # Newline options
-csharp_new_line_before_open_brace = none
+csharp_new_line_before_open_brace = all
 csharp_new_line_before_else = true
 csharp_new_line_before_catch = true
 csharp_new_line_before_finally = true
