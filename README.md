@@ -1,6 +1,6 @@
 # PaddleBall
 
-[![Chickensoft Badge][chickensoft-badge]][chickensoft-website] ![line coverage][line-coverage] ![branch coverage][branch-coverage]
+![line coverage][line-coverage] ![branch coverage][branch-coverage]
 
 A simple pong-like game made with Godot 4 and C#.
 
@@ -160,8 +160,6 @@ The included `renovate.json` includes a few configuration options to limit how o
 <!-- Links -->
 
 <!-- Header -->
-[chickensoft-badge]: https://raw.githubusercontent.com/chickensoft-games/chickensoft_site/main/static/img/badges/chickensoft_badge.svg
-[chickensoft-website]: https://chickensoft.games
 [line-coverage]: badges/line_coverage.svg
 [branch-coverage]: badges/branch_coverage.svg
 
