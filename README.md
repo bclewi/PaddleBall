@@ -1,33 +1,8 @@
 # PaddleBall
 
-[![Chickensoft Badge][chickensoft-badge]][chickensoft-website] [![Discord][discord-badge]][discord] [![Read the docs][read-the-docs-badge]][docs] ![line coverage][line-coverage] ![branch coverage][branch-coverage]
+[![Chickensoft Badge][chickensoft-badge]][chickensoft-website] ![line coverage][line-coverage] ![branch coverage][branch-coverage]
 
-C# game template for Godot 4 with debug launch configurations, testing (locally and on CI/CD), code coverage, dependency update checks, and spell check working out-of-the-box!
-
----
-
-<p align="center">
-<img alt="Cardboard Box with Chickensoft Logo" src="icon.png" width="200">
-</p>
-
-## 🥚 Getting Started
-
-This template allows you to easily create a C# game for Godot 4. Microsoft's `dotnet` tool allows you to easily create, install, and use templates.
-
-```sh
-# Install this template
-dotnet new install PaddleBall
-
-# Generate a new project based on this template
-dotnet new chickengame --name "MyGameName" --param:author "My Name"
-
-cd MyGameName
-dotnet build
-```
-
-## 💁 Getting Help
-
-*Is this template broken? Encountering obscure C# build problems?* We'll be happy to help you in the [Chickensoft Discord server][discord].
+A simple pong-like game made with Godot 4 and C#.
 
 ## 🏝 Environment Setup
 
