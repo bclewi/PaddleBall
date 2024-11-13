@@ -1,34 +1,32 @@
-namespace PaddleBall;
+namespace PaddleBall.Tests;
 
 using System.Threading.Tasks;
-using Godot;
 using Chickensoft.GoDotTest;
 using Chickensoft.GodotTestDriver;
 using Chickensoft.GodotTestDriver.Drivers;
-using Shouldly;
+using FluentAssertions;
+using Godot;
 
-public class GameTest : TestClass
+public class GameTest(Node testScene) : TestClass(testScene)
 {
-    private Game _game = default!;
-    private Fixture _fixture = default!;
-
-    public GameTest(Node testScene) : base(testScene) { }
+    private Game game = default!;
+    private Fixture fixture = default!;
 
     [SetupAll]
     public async Task Setup()
     {
-        _fixture = new Fixture(TestScene.GetTree());
-        _game = await _fixture.LoadAndAddScene<Game>();
+        fixture = new Fixture(TestScene.GetTree());
+        game = await fixture.LoadAndAddScene<Game>();
     }
 
     [CleanupAll]
-    public void Cleanup() => _fixture.Cleanup();
+    public void Cleanup() => fixture.Cleanup();
 
     [Test]
     public void TestButtonUpdatesCounter()
     {
-        var buttonDriver = new ButtonDriver(() => _game.TestButton);
+        var buttonDriver = new ButtonDriver(() => game.TestButton);
         buttonDriver.ClickCenter();
-        _game.ButtonPresses.ShouldBe(1);
+        game.ButtonPresses.Should().Be(1);
     }
 }
