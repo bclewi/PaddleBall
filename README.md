@@ -2,7 +2,7 @@
 
 ![line coverage][line-coverage] ![branch coverage][branch-coverage]
 
-A simple pong-like game made with Godot 4 and C#.
+A simple pong-like game (in progress) made with Godot 4 and C#.
 
 ## 🏝 Environment Setup
 
