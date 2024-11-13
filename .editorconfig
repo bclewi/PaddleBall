@@ -343,12 +343,12 @@ dotnet_naming_symbols.constant_fields.applicable_accessibilities = *
 dotnet_naming_symbols.constant_fields.required_modifiers = const
 
 # Non-public fields should be _camelCase
-dotnet_naming_rule.non_public_fields_under_camel.severity = suggestion
-dotnet_naming_rule.non_public_fields_under_camel.symbols = non_public_fields
-dotnet_naming_rule.non_public_fields_under_camel.style = camel_case_underscore_style
-dotnet_naming_symbols.non_public_fields.applicable_kinds = field
-dotnet_naming_symbols.non_public_fields.required_modifiers =
-dotnet_naming_symbols.non_public_fields.applicable_accessibilities = private,private_protected,protected,internal,protected,protected_internal
+# dotnet_naming_rule.non_public_fields_under_camel.severity = suggestion
+# dotnet_naming_rule.non_public_fields_under_camel.symbols = non_public_fields
+# dotnet_naming_rule.non_public_fields_under_camel.style = camel_case_underscore_style
+# dotnet_naming_symbols.non_public_fields.applicable_kinds = field
+# dotnet_naming_symbols.non_public_fields.required_modifiers =
+# dotnet_naming_symbols.non_public_fields.applicable_accessibilities = private,private_protected,protected,internal,protected,protected_internal
 
 # Public fields should be PascalCase
 dotnet_naming_rule.public_fields_pascal.severity = suggestion
@@ -415,45 +415,48 @@ dotnet_naming_symbols.unspecified.applicable_accessibilities = *
 # Chickensoft Rule Overrides
 ##########################################
 
-# Allow using keywords as names
-# dotnet_diagnostic.CA1716.severity = none
-# Don't require culture info for ToString()
-dotnet_diagnostic.CA1304.severity = none
-# Don't require a string comparison for comparing strings.
-dotnet_diagnostic.CA1310.severity = none
-# Don't require a string format specifier.
-dotnet_diagnostic.CA1305.severity = none
+# Not disposing of objects in a test is normal within Godot because of scene tree stuff.
+dotnet_diagnostic.CA1001.severity = none
 # Allow protected fields.
 dotnet_diagnostic.CA1051.severity = none
+# Don't require culture info for ToString()
+dotnet_diagnostic.CA1304.severity = none
+# Don't require a string format specifier.
+dotnet_diagnostic.CA1305.severity = none
+# Don't require a string comparison for comparing strings.
+dotnet_diagnostic.CA1310.severity = none
+# Allow keyword-based names so that parameter names like `@event` can be used.
+dotnet_diagnostic.CA1716.severity = none
+
 # Don't warn about checking values that are supposedly never null. Sometimes
 # they are actually null.
 dotnet_diagnostic.CS8073.severity = none
+
+# Allow expression values to go unused, even without discard variable.
+# Otherwise, using Moq would be way too verbose.
+dotnet_diagnostic.IDE0058.severity = none
 # Don't remove seemingly "unnecessary" assignments, as they often have
 # intended side-effects.
 dotnet_diagnostic.IDE0059.severity = none
-# Switch/case should always have a default clause. Tell that to Roslynator.
-dotnet_diagnostic.RCS1070.severity = none
-# Tell roslynator not to eat unused parameters.
-dotnet_diagnostic.RCS1163.severity = none
 # Tell dotnet not to remove unused parameters.
 dotnet_diagnostic.IDE0060.severity = none
+
 # Tell roslynator not to remove `partial` modifiers.
 dotnet_diagnostic.RCS1043.severity = none
 # Tell roslynator not to make classes static so aggressively.
 dotnet_diagnostic.RCS1102.severity = none
-# Roslynator wants to make properties readonly all the time, so stop it.
-# The developer knows best when it comes to contract definitions with Godot.
-dotnet_diagnostic.RCS1170.severity = none
-# Allow expression values to go unused, even without discard variable.
-# Otherwise, using Moq would be way too verbose.
-dotnet_diagnostic.IDE0058.severity = none
 # Don't let roslynator turn every local variable into a const.
 # If we did, we'd have to specify the types of local variables far more often,
 # and this style prefers type inference.
 dotnet_diagnostic.RCS1118.severity = none
 # Enums don't need to declare explicit values. Everyone knows they start at 0.
 dotnet_diagnostic.RCS1161.severity = none
+# Tell roslynator not to eat unused parameters.
+dotnet_diagnostic.RCS1163.severity = none
 # Allow unconstrained type parameter to be checked for null.
 dotnet_diagnostic.RCS1165.severity = none
-# Allow keyword-based names so that parameter names like `@event` can be used.
-dotnet_diagnostic.CA1716.severity = none
+# Switch/case should always have a default clause. Tell that to Roslynator.
+dotnet_diagnostic.RCS1070.severity = none
+# Roslynator wants to make properties readonly all the time, so stop it.
+# The developer knows best when it comes to contract definitions with Godot.
+dotnet_diagnostic.RCS1170.severity = none
