@@ -440,6 +440,8 @@ dotnet_diagnostic.IDE0058.severity = none
 dotnet_diagnostic.IDE0059.severity = none
 # Tell dotnet not to remove unused parameters.
 dotnet_diagnostic.IDE0060.severity = none
+# Allow fields to start with an underscore.
+dotnet_diagnostic.IDE1006.severity = none
 
 # Tell roslynator not to remove `partial` modifiers.
 dotnet_diagnostic.RCS1043.severity = none
