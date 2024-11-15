@@ -1,6 +1,13 @@
 {
   "files": [
-    "**/*.*"
+    "**/*.cs",
+    "**/*.md",
+    "LICENSE",
+    "**/*.sh",
+    "**/*.ps1",
+    "**/*.gdshader",
+    "**/*.gdshader",
+    "*.gd"
   ],
   "ignorePaths": [
     "**/*.tscn",
@@ -9,7 +16,9 @@
     "coverage/**/*.*",
     ".godot/**/*.*",
     "**/*.tres",
-    "addons/**/*.*"
+    "addons/**/*.*",
+    "**/*.res",
+    "project.godot"
   ],
   "words": [
     "animatable",
@@ -29,6 +38,7 @@
     "endregion",
     "fabrik",
     "framebuffer",
+    "gdshader",
     "globaltool",
     "gltf",
     "godotengine",
