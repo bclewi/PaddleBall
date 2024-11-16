@@ -1,6 +1,5 @@
 namespace PaddleBall;
 
-using System;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
@@ -19,7 +18,7 @@ public interface IPauseMenu : IControl
 [Meta(typeof(IAutoNode))]
 public partial class PauseMenu : Control, IPauseMenu
 {
-    public static class AnimationNames
+    public static class AnimationName
     {
         public const string FadeIn = "fade_in";
         public const string FadeOut = "fade_out";
@@ -37,18 +36,22 @@ public partial class PauseMenu : Control, IPauseMenu
 
     public void OnReady()
     {
+        MainMenuButton.Pressed += OnMainMenuPressed;
+        ResumeButton.Pressed += OnResumePressed;
         AnimationPlayer.AnimationFinished += OnAnimationFinished;
     }
 
     public void OnExitTree()
     {
+        MainMenuButton.Pressed -= OnMainMenuPressed;
+        ResumeButton.Pressed -= OnResumePressed;
         AnimationPlayer.AnimationFinished -= OnAnimationFinished;
     }
 
-    public void OnMainMenuPressed() => throw new NotImplementedException();
-    public void OnResumePressed() => throw new NotImplementedException();
-    public void OnAnimationFinished(StringName name) => throw new NotImplementedException();
+    public void OnMainMenuPressed() => EmitSignal(SignalName.MainMenu);
+    public void OnResumePressed() => EmitSignal(SignalName.Resume);
+    public void OnAnimationFinished(StringName _) => EmitSignal(SignalName.TransitionCompleted);
 
-    public void FadeIn() => throw new NotImplementedException();
-    public void FadeOut() => throw new NotImplementedException();
+    public void FadeIn() => AnimationPlayer.Play(AnimationName.FadeIn);
+    public void FadeOut() => AnimationPlayer.Play(AnimationName.FadeOut);
 }

@@ -1,10 +1,8 @@
 namespace PaddleBall.Tests;
 
-using System.Threading;
 using System.Threading.Tasks;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
-using Chickensoft.LogicBlocks;
 using FluentAssertions;
 using Godot;
 using Moq;
@@ -75,7 +73,7 @@ public class PauseMenuTest(Node testScene) : TestClass(testScene)
     {
         var signal = menu.ToSignal(menu, PauseMenu.SignalName.TransitionCompleted);
 
-        menu.OnAnimationFinished(PauseMenu.AnimationNames.FadeIn);
+        menu.OnAnimationFinished(PauseMenu.AnimationName.FadeIn);
 
         await signal;
         signal.IsCompleted.Should().BeTrue();
@@ -88,7 +86,7 @@ public class PauseMenuTest(Node testScene) : TestClass(testScene)
         var customSpeed = 1;
         var fromEnd = false;
 
-        _animationPlayer.Setup(x => x.Play(PauseMenu.AnimationNames.FadeIn,
+        _animationPlayer.Setup(x => x.Play(PauseMenu.AnimationName.FadeIn,
             customBlend, customSpeed, fromEnd));
 
         menu.FadeIn();
@@ -103,10 +101,10 @@ public class PauseMenuTest(Node testScene) : TestClass(testScene)
         var customSpeed = 1;
         var fromEnd = false;
 
-        _animationPlayer.Setup(x => x.Play(PauseMenu.AnimationNames.FadeOut,
+        _animationPlayer.Setup(x => x.Play(PauseMenu.AnimationName.FadeOut,
             customBlend, customSpeed, fromEnd));
 
-        menu.FadeIn();
+        menu.FadeOut();
 
         _animationPlayer.VerifyAll();
     }
