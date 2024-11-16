@@ -1,6 +1,7 @@
 namespace PaddleBall.Tests;
 
 using Chickensoft.AutoInject;
+using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.GoDotTest;
 using FluentAssertions;
@@ -9,11 +10,12 @@ using Moq;
 
 public class InGameUITest(Node testScene) : TestClass(testScene)
 {
-    private Mock<IAppRepo> appRepo = default!;
-    private Mock<IGameRepo> gameRepo = default!;
+    private Mock<IAppRepo> _appRepo = default!;
+    private Mock<IGameRepo> _gameRepo = default!;
+    private Mock<ILabel> _leftPlayerScoreLabel = default!;
+    private Mock<ILabel> _rightPlayerScoreLabel = default!;
+
     private Mock<IInGameUILogic> logic = default!;
-    private Mock<ILabel> leftPlayerScoreLabel = default!;
-    private Mock<ILabel> rightPlayerScoreLabel = default!;
     private InGameUILogic.IFakeBinding binding = default!;
 
     private InGameUI ui = default!;
@@ -21,11 +23,12 @@ public class InGameUITest(Node testScene) : TestClass(testScene)
     [Setup]
     public void Setup()
     {
-        appRepo = new();
-        gameRepo = new();
+        _appRepo = new();
+        _gameRepo = new();
+        _leftPlayerScoreLabel = new();
+        _rightPlayerScoreLabel = new();
+
         logic = new();
-        leftPlayerScoreLabel = new();
-        rightPlayerScoreLabel = new();
         binding = InGameUILogic.CreateFakeBinding();
 
         logic.Setup(x => x.Bind()).Returns(binding);
@@ -33,11 +36,13 @@ public class InGameUITest(Node testScene) : TestClass(testScene)
 
         ui = new()
         {
+            LeftPlayerScoreLabel = _leftPlayerScoreLabel.Object,
+            RightPlayerScoreLabel = _rightPlayerScoreLabel.Object,
             InGameUILogic = logic.Object
         };
 
-        ui.FakeDependency(appRepo.Object);
-        ui.FakeDependency(gameRepo.Object);
+        ui.FakeDependency(_appRepo.Object);
+        ui.FakeDependency(_gameRepo.Object);
 
         ui._Notification(-1);
     }
@@ -67,8 +72,10 @@ public class InGameUITest(Node testScene) : TestClass(testScene)
     {
         ui.OnResolved();
 
-        leftPlayerScoreLabel.SetupSet(x => x.Text = "1");
-        rightPlayerScoreLabel.SetupSet(x => x.Text = "2");
+        _gameRepo.Setup(x => x.PlayerTwoScore).Returns(new AutoProp<int>(1));
+
+        _leftPlayerScoreLabel.SetupSet(x => x.Text = "1");
+        _rightPlayerScoreLabel.SetupSet(x => x.Text = "2");
 
         binding.Output(new InGameUILogic.Output.ScoreChanged
         {
@@ -76,7 +83,7 @@ public class InGameUITest(Node testScene) : TestClass(testScene)
             PlayerTwoScore = 2
         });
 
-        leftPlayerScoreLabel.VerifyAll();
-        rightPlayerScoreLabel.VerifyAll();
+        _leftPlayerScoreLabel.VerifyAll();
+        _rightPlayerScoreLabel.VerifyAll();
     }
 }
