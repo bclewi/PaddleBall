@@ -21,7 +21,7 @@ public class MenuTest(Node testScene) : TestClass(testScene)
 
         menu = new Menu
         {
-            StartGameButton = startGameButton.Object,
+            NewGameButton = startGameButton.Object,
             QuitGameButton = quitGameButton.Object
         };
 
@@ -32,18 +32,18 @@ public class MenuTest(Node testScene) : TestClass(testScene)
     public void Subscribes()
     {
         menu.OnReady();
-        startGameButton.VerifyAdd(x => x.Pressed += menu.OnStartGamePressed);
+        startGameButton.VerifyAdd(x => x.Pressed += menu.OnNewGamePressed);
 
         menu.OnExitTree();
-        startGameButton.VerifyRemove(x => x.Pressed -= menu.OnStartGamePressed);
+        startGameButton.VerifyRemove(x => x.Pressed -= menu.OnNewGamePressed);
     }
 
     [Test]
-    public async Task SignalsStartGameButtonPressed()
+    public async Task SignalsNewGameButtonPressed()
     {
-        var signal = menu.ToSignal(menu, Menu.SignalName.StartGame);
+        var signal = menu.ToSignal(menu, Menu.SignalName.NewGame);
 
-        menu.OnStartGamePressed();
+        menu.OnNewGamePressed();
 
         await signal;
         signal.IsCompleted.Should().BeTrue();

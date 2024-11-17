@@ -1,0 +1,23 @@
+@startuml AppLogic
+state "AppLogic State" as PaddleBall_AppLogic_State {
+  state "InGame" as PaddleBall_AppLogic_State_InGame
+  state "LeavingGame" as PaddleBall_AppLogic_State_LeavingGame
+  state "LeavingMenu" as PaddleBall_AppLogic_State_LeavingMenu
+  state "MainMenu" as PaddleBall_AppLogic_State_MainMenu
+  state "SplashScreen" as PaddleBall_AppLogic_State_SplashScreen
+}
+
+PaddleBall_AppLogic_State_LeavingGame --> PaddleBall_AppLogic_State_InGame : FadeOutFinished
+PaddleBall_AppLogic_State_LeavingGame --> PaddleBall_AppLogic_State_MainMenu : FadeOutFinished
+PaddleBall_AppLogic_State_LeavingMenu --> PaddleBall_AppLogic_State_InGame : FadeOutFinished
+PaddleBall_AppLogic_State_MainMenu --> PaddleBall_AppLogic_State_LeavingMenu : NewGame
+PaddleBall_AppLogic_State_SplashScreen --> PaddleBall_AppLogic_State_MainMenu : FadeOutFinished
+
+PaddleBall_AppLogic_State_LeavingGame : OnFadeOutFinished → SetupGameScene
+PaddleBall_AppLogic_State_LeavingMenu : OnEnter → FadeToBlack
+PaddleBall_AppLogic_State_MainMenu : OnEnter → SetupGameScene, ShowMainMenu
+PaddleBall_AppLogic_State_SplashScreen : OnEnter → ShowSplashScreen
+PaddleBall_AppLogic_State_SplashScreen : OnSplashScreenSkipped() → HideSplashScreen
+
+[*] --> PaddleBall_AppLogic_State_SplashScreen
+@enduml
