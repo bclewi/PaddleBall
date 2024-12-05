@@ -1,0 +1,109 @@
+[gd_scene load_steps=8 format=3 uid="uid://bqeavaw1ycqht"]
+
+[ext_resource type="Script" path="res://src/app/App.cs" id="1_1y1pj"]
+[ext_resource type="PackedScene" uid="uid://b575xg4fhoqjo" path="res://src/menu/Menu.tscn" id="2_0d8ut"]
+[ext_resource type="PackedScene" uid="uid://h5v3xudtkx7f" path="res://src/menu/splash/Splash.tscn" id="3_vm8ys"]
+
+[sub_resource type="Animation" id="Animation_fblvt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlankScreenControl/BlankScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jt56e"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlankScreenControl/BlankScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_s2nvt"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlankScreenControl/BlankScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g6xxu"]
+_data = {
+"RESET": SubResource("Animation_fblvt"),
+"fade_in": SubResource("Animation_jt56e"),
+"fade_out": SubResource("Animation_s2nvt")
+}
+
+[node name="App" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_1y1pj")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="GamePreview" type="SubViewport" parent="SubViewportContainer"]
+unique_name_in_owner = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+deterministic = true
+libraries = {
+"": SubResource("AnimationLibrary_g6xxu")
+}
+
+[node name="Menu" parent="." instance=ExtResource("2_0d8ut")]
+unique_name_in_owner = true
+visible = false
+
+[node name="Splash" parent="." instance=ExtResource("3_vm8ys")]
+unique_name_in_owner = true
+visible = false
+
+[node name="BlankScreenControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BlankScreen" type="ColorRect" parent="BlankScreenControl"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

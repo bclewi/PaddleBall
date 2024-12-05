@@ -7,7 +7,7 @@ using Godot;
 
 public interface IMenu : IControl
 {
-    event Menu.StartGameEventHandler StartGame;
+    event Menu.NewGameEventHandler NewGame;
     event Menu.QuitGameEventHandler QuitGame;
 }
 
@@ -16,24 +16,24 @@ public partial class Menu : Control, IMenu
 {
     public override void _Notification(int what) => this.Notify(what);
 
-    [Node] public IButton StartGameButton { get; set; } = default!;
+    [Node] public IButton NewGameButton { get; set; } = default!;
     [Node] public IButton QuitGameButton { get; set; } = default!;
 
-    [Signal] public delegate void StartGameEventHandler();
+    [Signal] public delegate void NewGameEventHandler();
     [Signal] public delegate void QuitGameEventHandler();
 
     public void OnReady()
     {
-        StartGameButton.Pressed += OnStartGamePressed;
+        NewGameButton.Pressed += OnNewGamePressed;
         QuitGameButton.Pressed += OnQuitGamePressed;
     }
 
     public void OnExitTree()
     {
-        StartGameButton.Pressed -= OnStartGamePressed;
+        NewGameButton.Pressed -= OnNewGamePressed;
         QuitGameButton.Pressed -= OnQuitGamePressed;
     }
 
-    public void OnStartGamePressed() => EmitSignal(SignalName.StartGame);
-    public void OnQuitGamePressed() => EmitSignal(SignalName.QuitGame);
+    public void OnNewGamePressed() => EmitSignal(SignalName.NewGame);
+    public void OnQuitGamePressed() => GetTree().Quit();
 }

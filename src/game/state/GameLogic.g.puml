@@ -1,0 +1,31 @@
+@startuml GameLogic
+state "GameLogic State" as PaddleBall_GameLogic_State {
+  state "MenuBackdrop" as PaddleBall_GameLogic_State_MenuBackdrop
+  state "Paused" as PaddleBall_GameLogic_State_Paused
+  state "Playing" as PaddleBall_GameLogic_State_Playing
+  state "Quit" as PaddleBall_GameLogic_State_Quit
+  state "RestartingGame" as PaddleBall_GameLogic_State_RestartingGame
+  state "Resuming" as PaddleBall_GameLogic_State_Resuming
+  state "Won" as PaddleBall_GameLogic_State_Won
+}
+
+PaddleBall_GameLogic_State_MenuBackdrop --> PaddleBall_GameLogic_State_MenuBackdrop : Initialize
+PaddleBall_GameLogic_State_MenuBackdrop --> PaddleBall_GameLogic_State_Playing : Start
+PaddleBall_GameLogic_State_Paused --> PaddleBall_GameLogic_State_Quit : GoToMainMenu
+PaddleBall_GameLogic_State_Paused --> PaddleBall_GameLogic_State_Resuming : PauseButtonPressed
+PaddleBall_GameLogic_State_Playing --> PaddleBall_GameLogic_State_Paused : PauseButtonPressed
+PaddleBall_GameLogic_State_Playing --> PaddleBall_GameLogic_State_Quit : EndGame
+PaddleBall_GameLogic_State_Playing --> PaddleBall_GameLogic_State_Won : EndGame
+PaddleBall_GameLogic_State_Resuming --> PaddleBall_GameLogic_State_Playing : PauseMenuTransitioned
+PaddleBall_GameLogic_State_Won --> PaddleBall_GameLogic_State_Won : GoToMainMenu
+
+PaddleBall_GameLogic_State : OnIsMouseCaptured() → CaptureMouse
+PaddleBall_GameLogic_State : OnIsPaused() → SetPauseMode
+PaddleBall_GameLogic_State_Paused : OnEnter → ShowPauseMenu
+PaddleBall_GameLogic_State_Paused : OnExit → ExitPauseMenu
+PaddleBall_GameLogic_State_Playing : OnEnter → StartGame
+PaddleBall_GameLogic_State_Resuming : OnExit → HidePauseMenu
+PaddleBall_GameLogic_State_Won : OnEnter → ShowWonScreen
+
+[*] --> PaddleBall_GameLogic_State_MenuBackdrop
+@enduml

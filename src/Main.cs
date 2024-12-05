@@ -26,20 +26,18 @@ public partial class Main : Node2D
         Environment = TestEnvironment.From(OS.GetCmdlineArgs());
         if (Environment.ShouldRunTests)
         {
-            CallDeferred("RunTests");
+            CallDeferred(nameof(RunTests));
             return;
         }
 #endif
 
         // If we don't need to run tests, we can just switch to the game scene.
-        CallDeferred("RunScene");
+        CallDeferred(nameof(StartApp));
     }
 
 #if DEBUG
-    private void RunTests()
-      => _ = GoTest.RunTests(Assembly.GetExecutingAssembly(), this, Environment);
+    private void RunTests() => _ = GoTest.RunTests(Assembly.GetExecutingAssembly(), this, Environment);
 #endif
 
-    private void RunScene()
-      => GetTree().ChangeSceneToFile("res://src/Game.tscn");
+    private void StartApp() => GetTree().ChangeSceneToFile("res://src/app/App.tscn");
 }
