@@ -35,5 +35,5 @@ public partial class Menu : Control, IMenu
     }
 
     public void OnNewGamePressed() => EmitSignal(SignalName.NewGame);
-    public void OnQuitGamePressed() => EmitSignal(SignalName.QuitGame);
+    public void OnQuitGamePressed() => GetTree().Quit();
 }

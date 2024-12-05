@@ -33,9 +33,11 @@ public class MenuTest(Node testScene) : TestClass(testScene)
     {
         menu.OnReady();
         startGameButton.VerifyAdd(x => x.Pressed += menu.OnNewGamePressed);
+        quitGameButton.VerifyAdd(x => x.Pressed += menu.OnQuitGamePressed);
 
         menu.OnExitTree();
         startGameButton.VerifyRemove(x => x.Pressed -= menu.OnNewGamePressed);
+        quitGameButton.VerifyRemove(x => x.Pressed -= menu.OnQuitGamePressed);
     }
 
     [Test]
@@ -44,17 +46,6 @@ public class MenuTest(Node testScene) : TestClass(testScene)
         var signal = menu.ToSignal(menu, Menu.SignalName.NewGame);
 
         menu.OnNewGamePressed();
-
-        await signal;
-        signal.IsCompleted.Should().BeTrue();
-    }
-
-    [Test]
-    public async Task SignalsQuitGameButtonPressed()
-    {
-        var signal = menu.ToSignal(menu, Menu.SignalName.QuitGame);
-
-        menu.OnQuitGamePressed();
 
         await signal;
         signal.IsCompleted.Should().BeTrue();
